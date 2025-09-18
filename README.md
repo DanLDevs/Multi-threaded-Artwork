@@ -1,95 +1,94 @@
-🎨 Multithreaded Producer–Consumer Console Art
+**🎨 Multithreaded Producer–Consumer Console Art**
 
-This project demonstrates multithreading in C++ using the classic Producer–Consumer pattern and the shared memory technique.
+- This project demonstrates multithreading in C++ using the classic Producer–Consumer pattern and the shared memory technique.
 
-The result is a piece of computer-generated console art, where random characters are drawn at random positions in the terminal with random colors, filling the screen over time until it stops automatically when most of the console is filled.
+- The result is a piece of computer-generated console art, where random characters are drawn at random positions in the terminal with random colors, filling the screen over time until it stops automatically when most of the console is filled.
 
-🚀 Features
+**🚀 Features**
 
-Producer Thread
+**Producer Thread**
+- Continuously generates random numbers.
 
-Continuously generates random numbers.
+- Pushes numbers into a shared memory queue.
 
-Pushes numbers into a shared memory queue.
+- Sleeps for a random interval between 100–600 ms.
 
-Sleeps for a random interval between 100–600 ms.
+- Notifies consumers when new data is available.
 
-Notifies consumers when new data is available.
+**Consumer Threads**
 
-Consumer Threads
+- Wait for data from the shared queue.
 
-Wait for data from the shared queue.
+- Retrieve numbers and use them to set font color.
 
-Retrieve numbers and use them to set font color.
+- Print random characters at random (x, y) positions in the console.
 
-Print random characters at random (x, y) positions in the console.
+- Stop gracefully once most of the console screen is filled (~80%).
 
-Stop gracefully once most of the console screen is filled (~80%).
+**Shared Memory & Synchronization**
 
-Shared Memory & Synchronization
+- Threads communicate through a shared queue in memory (std::queue<int>).
 
-Threads communicate through a shared queue in memory (std::queue<int>).
+- A std::mutex ensures thread-safe access to the queue.
 
-A std::mutex ensures thread-safe access to the queue.
+- A std::condition_variable allows the producer to signal consumers when data is ready.
 
-A std::condition_variable allows the producer to signal consumers when data is ready.
+- A shared counter tracks how much of the console has been filled.
 
-A shared counter tracks how much of the console has been filled.
+**🛠️ Technologies Used**
 
-🛠️ Technologies Used
+- C++11 multithreading (std::thread, std::mutex, std::condition_variable)
 
-C++11 multithreading (std::thread, std::mutex, std::condition_variable)
+- Shared memory technique for inter-thread communication
 
-Shared memory technique for inter-thread communication
+- Windows API (SetConsoleCursorPosition, SetConsoleTextAttribute) for console manipulation
 
-Windows API (SetConsoleCursorPosition, SetConsoleTextAttribute) for console manipulation
+- Randomized output to create generative art
 
-Randomized output to create generative art
+**📂 How It Works**
 
-📂 How It Works
+1. Producer generates a random number (0–15) and pushes it into a shared queue in memory.
 
-Producer generates a random number (0–15) and pushes it into a shared queue in memory.
+2. Consumers wait until data appears in the queue.
 
-Consumers wait until data appears in the queue.
+3. Each number determines:
 
-Each number determines:
+    - The text color for characters.
 
-The text color for characters.
+    - The number of characters to print.
 
-The number of characters to print.
+4. Consumers print random letters (A–Z) at random positions.
 
-Consumers print random letters (A–Z) at random positions.
+5. A shared counter tracks how much of the console has been filled. Once ~80% of the grid is full, the program terminates gracefully.
 
-A shared counter tracks how much of the console has been filled. Once ~80% of the grid is full, the program terminates gracefully.
+**▶️ Running the Program in Visual Studio**
 
-▶️ Running the Program in Visual Studio
+1. Open Visual Studio (any edition that supports C++).
 
-Open Visual Studio (any edition that supports C++).
+2. Go to File → New → Project.
 
-Go to File → New → Project.
+3. Select Console App (C++).
 
-Select Console App (C++).
+4. Copy the source code (main.cpp) into the project’s main file.
 
-Copy the source code (main.cpp) into the project’s main file.
+5. Make sure the project is set to compile with C++11 or later (Visual Studio supports this by default).
 
-Make sure the project is set to compile with C++11 or later (Visual Studio supports this by default).
+6. Press Ctrl+F5 (or "Start Without Debugging") to build and run the program.
 
-Press Ctrl+F5 (or "Start Without Debugging") to build and run the program.
+7. Watch as the console fills with colorful random characters until it automatically stops 🎨
 
-Watch as the console fills with colorful random characters until it automatically stops 🎨
+**📚 Learning Outcomes**
 
-📚 Learning Outcomes
+- This project demonstrates:
 
-This project demonstrates:
+- The shared memory technique for thread communication.
 
-The shared memory technique for thread communication.
+- How to safely share resources with std::mutex.
 
-How to safely share resources with std::mutex.
+- How std::condition_variable prevents wasteful polling.
 
-How std::condition_variable prevents wasteful polling.
+- How concurrency and randomness can be combined to create generative computer art.
 
-How concurrency and randomness can be combined to create generative computer art.
-
-🧑‍💻 Author
+**🧑‍💻 Author**
 
 Developed by DanLDevs
